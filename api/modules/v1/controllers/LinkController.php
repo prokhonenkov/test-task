@@ -23,7 +23,11 @@ class LinkController extends Controller
         }
 
         return (new Response(200, 'Success', [
-            'hash' => $form->getModel()->hash
+            'hash' => $form->getModel()->hash,
+            'shortLink' => sprintf('%s/%s',
+                \Yii::$app->request->getHostInfo(),
+                $form->getModel()->hash
+            )
         ]))->send();
     }
 

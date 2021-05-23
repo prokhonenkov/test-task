@@ -142,6 +142,9 @@ components:
                 hash:
                   type: string
                   example: e4sgj
+                shortLink:
+                  type: string
+                  example: http://ml.loc/e4sgj
 
     GettingHashResponse:
       allOf:
