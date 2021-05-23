@@ -9,9 +9,9 @@ use Yii;
  * This is the model class for table "links".
  *
  * @property int $id
- * @property string|null $hash
- * @property string|null $source
- * @property int|null $count_visits
+ * @property string $hash
+ * @property string $source
+ * @property int $count_visits
  */
 class Link extends \yii\db\ActiveRecord
 {
@@ -29,6 +29,7 @@ class Link extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['hash', 'source'], 'required'],
             [['count_visits'], 'integer'],
             [['hash', 'source'], 'string', 'max' => 255],
             [['hash'], 'unique'],

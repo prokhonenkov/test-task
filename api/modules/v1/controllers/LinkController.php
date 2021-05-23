@@ -45,7 +45,8 @@ class LinkController extends Controller
         }
 
         return (new Response(200, 'Success', [
-            'link' => $link->source
+            'link' => $link->source,
+            'count_visits' => $link->count_visits
         ]))->send();
     }
 

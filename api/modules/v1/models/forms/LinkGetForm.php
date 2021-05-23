@@ -15,6 +15,7 @@ class LinkGetForm extends Model implements GetFormInterface
     public function rules()
     {
         return [
+            [['hash'], 'required'],
             [['hash'], 'string', 'max' => 6, 'min' => 4],
         ];
     }

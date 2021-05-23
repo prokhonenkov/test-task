@@ -4,7 +4,7 @@ info:
   description: 'Test Api'
   version: 1.0.0
 servers:
-- url: http://ml.loc/v2
+  - url: http://ml.loc/v2
 paths:
   /link/create/:
     post:
@@ -34,7 +34,7 @@ paths:
           $ref: '#/components/responses/400'
         422:
           $ref: '#/components/responses/422'
-          
+
   /link/{hash}/:
     get:
       summary: Getting url by hash
@@ -59,8 +59,8 @@ paths:
           $ref: '#/components/responses/422'
         404:
           $ref: '#/components/responses/404'
-    
-  
+
+
 components:
   responses:
     '400':
@@ -81,7 +81,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error404'
-    
+
   schemas:
     Error400:
       type: object
@@ -93,7 +93,7 @@ components:
           type: string
           example: 'Bad Request'
       description: Bad Request
-      
+
     Error422:
       type: object
       properties:
@@ -110,7 +110,7 @@ components:
           type: string
           example: 'Invalid params'
       description: Validation error
-      
+
     Error404:
       type: object
       properties:
@@ -121,7 +121,7 @@ components:
           type: string
           example: 'Some string'
       description: Items not found
-      
+
     ResponseTemplate:
       type: object
       properties:
@@ -131,7 +131,7 @@ components:
         message:
           type: string
           example: Success
-          
+
     LinkCreateResponse:
       allOf:
         - $ref: '#/components/schemas/ResponseTemplate'
@@ -142,7 +142,7 @@ components:
                 hash:
                   type: string
                   example: e4sgj
-                  
+
     GettingHashResponse:
       allOf:
         - $ref: '#/components/schemas/ResponseTemplate'
@@ -153,3 +153,6 @@ components:
                 link:
                   type: string
                   example: http://somelink.ru/somepath
+                count_visits:
+                  type: number
+                  example: 5

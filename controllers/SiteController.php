@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\Link;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
@@ -64,6 +66,15 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionRedirect(string $hash)
+    {
+        $link = Link::find()->byHash($hash)->one();
+        if(is_null($link)) {
+            throw new NotFoundHttpException();
+        }
+        $link->updateCounters(['count_visits' => 1]);
+        return $this->redirect($link->source);
+    }
     /**
      * Login action.
      *

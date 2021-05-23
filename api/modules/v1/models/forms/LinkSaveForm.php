@@ -26,6 +26,7 @@ class LinkSaveForm extends Model implements SaveFormInterface
     public function rules()
     {
         return [
+            [['link'], 'required'],
             [['link'], 'string', 'max' => 255],
             [
                 ['link'],

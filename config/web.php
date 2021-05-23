@@ -48,6 +48,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '/<hash:[A-z0-9]{4,6}>' => 'site/redirect'
             ],
         ],
 

@@ -14,9 +14,9 @@ class m210522_050313_create_links_table extends Migration
     {
         $this->createTable('{{%links}}', [
             'id' => $this->primaryKey()->unsigned(),
-            'hash' => $this->string()->unique(),
-            'source' => $this->string()->unique(),
-            'count_visits' => $this->integer()->unsigned()->defaultValue(0)
+            'hash' => $this->string()->unique()->notNull(),
+            'source' => $this->string()->unique()->notNull(),
+            'count_visits' => $this->integer()->unsigned()->defaultValue(0)->notNull()
         ]);
 
         $this->createIndex('idx-count_visits', 'links', 'count_visits');
