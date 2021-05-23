@@ -4,7 +4,7 @@ info:
   description: 'Test Api'
   version: 1.0.0
 servers:
-  - url: http://ml.loc/v2
+  - url: http://ml.loc/api.php/v1
 paths:
   /link/create/:
     post:
