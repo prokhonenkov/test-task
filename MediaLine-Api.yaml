@@ -1,0 +1,155 @@
+openapi: 3.0.1
+info:
+  title: Swagger MediaLine
+  description: 'Test Api'
+  version: 1.0.0
+servers:
+- url: http://ml.loc/v2
+paths:
+  /link/create/:
+    post:
+      summary: Create short link
+      operationId: linkCreate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                link:
+                  type: string
+                  example: 'http://somelink.ru/some-path'
+              required:
+                - phone
+
+      responses:
+        200:
+          description: A hash
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkCreateResponse'
+        400:
+          $ref: '#/components/responses/400'
+        422:
+          $ref: '#/components/responses/422'
+          
+  /link/{hash}/:
+    get:
+      summary: Getting url by hash
+      operationId: getLinkByhash
+      parameters:
+        - name: hash
+          in: path
+          description: The short path of link
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: The object with original link
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GettingHashResponse'
+        400:
+          $ref: '#/components/responses/400'
+        422:
+          $ref: '#/components/responses/422'
+        404:
+          $ref: '#/components/responses/404'
+    
+  
+components:
+  responses:
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400'
+    '422':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error422'
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error404'
+    
+  schemas:
+    Error400:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        messages:
+          type: string
+          example: 'Bad Request'
+      description: Bad Request
+      
+    Error422:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        data:
+          type: object
+          properties:
+            paramName:
+              type: string
+              example: Description of error
+        messages:
+          type: string
+          example: 'Invalid params'
+      description: Validation error
+      
+    Error404:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        messages:
+          type: string
+          example: 'Some string'
+      description: Items not found
+      
+    ResponseTemplate:
+      type: object
+      properties:
+        success:
+          type: boolean
+          enum: [true, false]
+        message:
+          type: string
+          example: Success
+          
+    LinkCreateResponse:
+      allOf:
+        - $ref: '#/components/schemas/ResponseTemplate'
+        - properties:
+            data:
+              type: object
+              properties:
+                hash:
+                  type: string
+                  example: e4sgj
+                  
+    GettingHashResponse:
+      allOf:
+        - $ref: '#/components/schemas/ResponseTemplate'
+        - properties:
+            data:
+              type: object
+              properties:
+                link:
+                  type: string
+                  example: http://somelink.ru/somepath
